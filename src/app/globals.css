@@ -1,0 +1,312 @@
+@import "tailwindcss";
+
+/* ═══════════════════════════════════════════════════════════════
+   STAR MOBILES — DESIGN TOKENS
+   Art direction: cool graphite + warm paper stock, one signal blue.
+   No gradients as decoration. No pill UI. Restraint is the system.
+   ═══════════════════════════════════════════════════════════════ */
+
+@theme {
+  /* ── Dark surfaces ─────────────────────────────────────────── */
+  --color-void: #07080a;
+  --color-ink: #0c0d10;
+  --color-graphite: #131519;
+  --color-slate: #1b1e23;
+  --color-steel: #272b31;
+  --color-hair-dark: #22262c;
+
+  /* ── Light surfaces (warm paper stock) ────────────────────── */
+  --color-paper: #f1f0ec;
+  --color-paper-alt: #e6e4de;
+  --color-chalk: #fbfaf8;
+  --color-hair-light: #d2cfc7;
+
+  /* ── Foreground tones ─────────────────────────────────────── */
+  --color-fog: #6c737c;
+  --color-mist: #9ba2ab;
+  --color-ash: #4a5058;
+
+  /* ── Single brand accent ───────────────────────────────────── */
+  --color-signal: #1b45f0;
+  --color-signal-deep: #0f2cb0;
+  --color-signal-lift: #5b7bff;
+
+  /* ── Type ──────────────────────────────────────────────────── */
+  --font-display: var(--font-inter-tight), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, "SFMono-Regular", monospace;
+
+  /* ── Radii: deliberately almost none ───────────────────────── */
+  --radius-*: initial;
+  --radius-2xs: 1px;
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+
+  /* ── Motion ────────────────────────────────────────────────── */
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-swift: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-mask: cubic-bezier(0.76, 0, 0.24, 1);
+
+  /* ── Layout ────────────────────────────────────────────────── */
+  --spacing-gutter: clamp(1.25rem, 4vw, 3.5rem);
+  --container-shell: 1680px;
+}
+
+/* ═══ Base ════════════════════════════════════════════════════ */
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    border-color: currentColor;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+    background-color: var(--color-void);
+  }
+
+  body {
+    background-color: var(--color-void);
+    color: var(--color-mist);
+    font-family: var(--font-display);
+    font-synthesis-weight: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
+  }
+
+  /* Typography defaults — display face throughout */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-display);
+    color: inherit;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* Visible, on-brand focus for keyboard users */
+  :focus-visible {
+    outline: 2px solid var(--color-signal-lift);
+    outline-offset: 3px;
+    border-radius: var(--radius-2xs);
+  }
+
+  ::selection {
+    background-color: var(--color-signal);
+    color: #fff;
+  }
+
+  /* Slim graphite scrollbar */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-steel) transparent;
+  }
+
+  *::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: var(--color-steel);
+  }
+
+  *::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+
+  input,
+  textarea,
+  select,
+  button {
+    font: inherit;
+    color: inherit;
+  }
+
+  img,
+  svg,
+  video {
+    display: block;
+    max-width: 100%;
+  }
+}
+
+/* ═══ Lenis smooth scroll ════════════════════════════════════ */
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* ═══ Utilities ══════════════════════════════════════════════ */
+
+@utility shell {
+  width: 100%;
+  max-width: var(--container-shell);
+  margin-inline: auto;
+  padding-inline: var(--spacing-gutter);
+}
+
+/* Fluid display type — editorial, oversized, tight */
+@utility type-display-xl {
+  font-size: clamp(3.1rem, 12.5vw, 11rem);
+  line-height: 0.84;
+  letter-spacing: -0.045em;
+  font-weight: 600;
+}
+
+@utility type-display-l {
+  font-size: clamp(2.5rem, 7.6vw, 6.25rem);
+  line-height: 0.88;
+  letter-spacing: -0.04em;
+  font-weight: 600;
+}
+
+@utility type-display-m {
+  font-size: clamp(1.9rem, 4.4vw, 3.5rem);
+  line-height: 0.94;
+  letter-spacing: -0.032em;
+  font-weight: 600;
+}
+
+@utility type-display-s {
+  font-size: clamp(1.35rem, 2.4vw, 2.125rem);
+  line-height: 1.02;
+  letter-spacing: -0.022em;
+  font-weight: 600;
+}
+
+@utility type-body {
+  font-size: clamp(0.975rem, 0.35vw + 0.9rem, 1.0625rem);
+  line-height: 1.62;
+}
+
+@utility type-body-lg {
+  font-size: clamp(1.0625rem, 0.7vw + 0.95rem, 1.375rem);
+  line-height: 1.5;
+  letter-spacing: -0.012em;
+}
+
+/* Technical micro-label: mono, uppercase, wide tracking */
+@utility type-label {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  line-height: 1.1;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+@utility type-label-xs {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  line-height: 1.1;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+@utility type-figure {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+/* Hairline rules used as the primary structural device */
+@utility rule-t {
+  border-top: 1px solid var(--color-hair-dark);
+}
+
+@utility rule-b {
+  border-bottom: 1px solid var(--color-hair-dark);
+}
+
+@utility rule-x {
+  border-inline: 1px solid var(--color-hair-dark);
+}
+
+/* Oversized index numerals for editorial lists */
+@utility type-index {
+  font-family: var(--font-mono);
+  font-size: clamp(0.625rem, 0.5vw, 0.75rem);
+  letter-spacing: 0.18em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ═══ Progressive motion gating ═══════════════════════════════
+   Elements start hidden only when JavaScript is present to reveal
+   them again, so a no-JS or failed-hydration visitor still sees the
+   full page content instead of a blank hero.
+   ═══════════════════════════════════════════════════════════════ */
+
+html.js .motion-hidden {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.js .motion-hidden {
+    opacity: 1;
+  }
+}
+
+/* ═══ Keyframes ══════════════════════════════════════════════ */
+
+@keyframes star-marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes star-sweep {
+  0% {
+    transform: translate3d(-30%, 0, 0);
+  }
+  100% {
+    transform: translate3d(130%, 0, 0);
+  }
+}
+
+@keyframes star-pulse {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* ═══ Reduced motion ═════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
