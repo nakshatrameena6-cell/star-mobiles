@@ -36,7 +36,7 @@ export const storeInfo = {
 
   address: {
     line1: "No. 11, Ramanadhapuram Main Road",
-    line2: "Pankaja Mill Road, Puliyakulam",
+    line2: "Pankaja Mill Road",
     locality: "Puliyakulam",
     city: "Coimbatore",
     region: "Tamil Nadu",
@@ -113,8 +113,30 @@ export const storeInfo = {
   social: [] as { label: string; href: string }[],
 } as const;
 
-/** Single-line postal address, used for map queries and structured data. */
-export const fullAddress = [
+/**
+ * Single-line postal address for map queries and structured data.
+ *
+ * De-duplicated on purpose: `line2` already ends in the locality, so a plain
+ * join produces "Puliyakulam, Puliyakulam" and Google Maps drops the pin.
+ * De-dupe is per-segment, not per-word, so it also survives config edits where
+ * a line is shortened or a new component is added.
+ */
+function joinAddress(parts: readonly string[]) {
+  const seen = new Set<string>();
+  return parts
+    .flatMap((part) => part.split(/,\s*/))
+    .map((part) => part.trim())
+    .filter((part) => {
+      if (!part) return false;
+      const key = part.toLowerCase();
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    })
+    .join(", ");
+}
+
+export const fullAddress = joinAddress([
   storeInfo.address.line1,
   storeInfo.address.line2,
   storeInfo.address.locality,
@@ -122,7 +144,7 @@ export const fullAddress = [
   storeInfo.address.region,
   storeInfo.address.postalCode,
   storeInfo.address.country,
-].join(", ");
+]);
 
 /** Human-friendly address split for display. */
 export const addressLines = [
