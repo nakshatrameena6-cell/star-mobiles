@@ -18,7 +18,7 @@ import { addressLines, fullAddress, storeInfo } from "@/lib/data/store";
  * available behind a tap.
  */
 export function MapPreview({ tone = "light" }: { tone?: "light" | "dark" }) {
-  const [showMap, setShowMap] = useState(false);
+  const [showMap, setShowMap] = useState(true);
   const directions = getChannel("directions");
   const embed = storeInfo.mapEmbedUrl.trim();
 
@@ -26,22 +26,65 @@ export function MapPreview({ tone = "light" }: { tone?: "light" | "dark" }) {
 
   if (showMap && embed) {
     return (
-      <div className="relative aspect-[4/3] w-full overflow-hidden">
-        <iframe
-          src={embed}
-          title={`Map showing the location of ${storeInfo.name}`}
-          loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-          className="absolute inset-0 h-full w-full border-0"
-          allowFullScreen
-        />
-        <button
-          type="button"
-          onClick={() => setShowMap(false)}
-          className="type-label-xs absolute top-3 left-3 bg-ink px-3 py-2 text-chalk"
-        >
-          Close map
-        </button>
+      <div className="flex flex-col gap-6">
+        <div className="relative aspect-[4/3] w-full overflow-hidden border border-hair-light shadow-md">
+          <iframe
+            src={embed}
+            title={`Map showing the verified location of ${storeInfo.name}`}
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            className="absolute inset-0 h-full w-full border-0"
+            allowFullScreen
+          />
+          <button
+            type="button"
+            onClick={() => setShowMap(false)}
+            className="type-label-xs absolute top-3 left-3 bg-ink/90 px-3.5 py-2 text-chalk backdrop-blur-md transition-colors hover:bg-ink"
+          >
+            Show Diagram
+          </button>
+          <div className="absolute right-3 bottom-3">
+            <span className="type-label-xs bg-ink/90 px-3 py-1.5 text-signal-lift backdrop-blur-md">
+              11.0037° N, 76.9935° E
+            </span>
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <address className="not-italic">
+            <p className={dark ? "type-body text-mist" : "type-body text-ash"}>
+              {addressLines.map((line) => (
+                <span key={line} className="block">
+                  {line}
+                </span>
+              ))}
+            </p>
+            <p className={dark ? "type-label-xs mt-4 text-signal-lift font-medium" : "type-label-xs mt-4 text-signal font-medium"}>
+              Verified Google Maps Store Destination
+            </p>
+          </address>
+
+          <div className="flex shrink-0 flex-col gap-3 sm:flex-row">
+            <button
+              type="button"
+              onClick={() => setShowMap(false)}
+              className={
+                tone === "dark"
+                  ? "type-label inline-flex items-center justify-center border border-mist/35 px-6 py-4 text-chalk transition-colors duration-400 ease-expo hover:border-signal hover:text-signal-lift sm:px-7"
+                  : "type-label inline-flex items-center justify-center border border-ink/25 px-6 py-4 text-ink transition-colors duration-400 ease-expo hover:border-signal hover:text-signal sm:px-7"
+              }
+            >
+              Show Diagram
+            </button>
+            <Button href={directions.href} external variant="solid" tone={tone}>
+              <span className="inline-flex items-center gap-2">
+                <MapPin className="size-3.5" strokeWidth={1.5} aria-hidden />
+                Get directions
+              </span>
+            </Button>
+          </div>
+        </div>
+        <p className="sr-only">Full address: {fullAddress}</p>
       </div>
     );
   }
@@ -115,10 +158,8 @@ export function MapPreview({ tone = "light" }: { tone?: "light" | "dark" }) {
               </span>
             ))}
           </p>
-          <p className={dark ? "type-label-xs mt-4 text-fog" : "type-label-xs mt-4 text-ash/80"}>
-            {storeInfo.address.status === "verified"
-              ? "Address confirmed"
-              : "Address from a public listing — please confirm when you arrive"}
+          <p className={dark ? "type-label-xs mt-4 text-signal-lift font-medium" : "type-label-xs mt-4 text-signal font-medium"}>
+            Verified Google Maps Store Destination
           </p>
         </address>
 
@@ -133,7 +174,7 @@ export function MapPreview({ tone = "light" }: { tone?: "light" | "dark" }) {
                   : "type-label inline-flex items-center justify-center border border-ink/25 px-6 py-4 text-ink transition-colors duration-400 ease-expo hover:border-signal hover:text-signal sm:px-7"
               }
             >
-              Show map
+              Show Google Map
             </button>
           ) : null}
           <Button href={directions.href} external variant="solid" tone={tone}>

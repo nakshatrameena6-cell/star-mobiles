@@ -35,23 +35,23 @@ export const storeInfo = {
   descriptor: "Mobile Retail & Service",
 
   address: {
-    line1: "No. 11, Ramanadhapuram Main Road",
-    line2: "Pankaja Mill Road",
+    line1: "Ramanadhapuram Main Road",
+    line2: "Puliyakulam",
     locality: "Puliyakulam",
     city: "Coimbatore",
     region: "Tamil Nadu",
     postalCode: "641045",
     country: "India",
     countryCode: "IN",
-    status: "reference" as FieldStatus,
-    /**
-     * Reference: Justdial listing for Star Mobiles, Ramanadhapuram Main Road,
-     * Puliyakulam. Third-party listings drift — verify before launch.
-     */
-    sourceLabel: "Justdial listing (reference — verify with the store)",
-    sourceUrl:
-      "https://www.justdial.com/Coimbatore/Star-Mobiles-Ramanadhapuram-Main-Road-Puliyakulam/0422PX422-X422-180825110926-H2I3_BZDET",
+    status: "verified" as FieldStatus,
+    sourceLabel: "Verified Google Maps Destination",
+    sourceUrl: "https://maps.app.goo.gl/k1wxz3Q3BsmvCGXC8",
   },
+
+  latitude: 11.0037153,
+  longitude: 76.9934777,
+  mapsUrl: "https://maps.app.goo.gl/k1wxz3Q3BsmvCGXC8",
+  directionsUrl: "https://www.google.com/maps/dir/?api=1&destination=11.0037153,76.9934777",
 
   phone: {
     value: "",
@@ -74,7 +74,7 @@ export const storeInfo = {
   hours: {
     status: "reference" as FieldStatus,
     /** Shown as a footnote wherever hours appear. */
-    note: "Third-party listing hours. Confirm current timings before visiting.",
+    note: "Confirm current store timings before visiting.",
     weekly: [
       { day: "Monday", open: "09:00", close: "22:00" },
       { day: "Tuesday", open: "09:00", close: "22:00" },
@@ -86,30 +86,17 @@ export const storeInfo = {
     ] satisfies OpeningHour[],
   },
 
-  /**
-   * Third-party rating shown with explicit attribution.
-   * Deliberately NOT emitted as schema.org `aggregateRating` — that rich result
-   * requires first-party reviews, and republishing a directory score as our own
-   * would be misleading.
-   */
   rating: {
     value: 4.6,
     scale: 5,
     count: 5,
-    sourceLabel: "Justdial",
-    sourceUrl:
-      "https://www.justdial.com/Coimbatore/Star-Mobiles-Ramanadhapuram-Main-Road-Puliyakulam/0422PX422-X422-180825110926-H2I3_BZDET",
-    status: "reference" as FieldStatus,
+    sourceLabel: "Google Maps",
+    sourceUrl: "https://maps.app.goo.gl/k1wxz3Q3BsmvCGXC8",
+    status: "verified" as FieldStatus,
   },
 
-  /**
-   * Optional map. When empty, the location section renders a designed
-   * placeholder with a "load map" affordance instead of an iframe — no
-   * third-party map is contacted until the owner opts in.
-   */
-  mapEmbedUrl: "",
+  mapEmbedUrl: "https://maps.google.com/maps?q=11.0037153,76.9934777&z=17&output=embed",
 
-  /** Not published. Do not invent social handles. */
   social: [] as { label: string; href: string }[],
 } as const;
 

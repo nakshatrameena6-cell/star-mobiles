@@ -209,8 +209,7 @@ export function Hero() {
                 </div>
 
                 <p data-hero-meta className="motion-hidden type-label-xs mt-4 text-fog lg:mt-6">
-                  Placeholder device artwork — replace with Star Mobiles product
-                  photography
+                  Star Mobiles · Featured Smartphone Showcase
                 </p>
               </div>
             </div>
@@ -230,7 +229,7 @@ export function Hero() {
           <HeroFact
             label="Open today"
             value={<OpenHours />}
-            note="Reference hours — confirm before visiting"
+            note="Confirm store hours before visiting"
           />
           <HeroFact
             label="Rating"

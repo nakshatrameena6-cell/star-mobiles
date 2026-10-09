@@ -49,7 +49,7 @@ export const contactChannels = [
     id: "directions",
     label: "Directions",
     display: storeInfo.address.locality,
-    href: mapsSearchUrl(fullAddress),
+    href: storeInfo.directionsUrl,
     configured: true,
     external: true,
   },

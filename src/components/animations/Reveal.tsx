@@ -102,18 +102,17 @@ export function Reveal({
   /** When set, children animate in sequence. */
   stagger?: number;
 }) {
-  const scope = useRef<HTMLDivElement>(null);
   const reduced = useReducedMotion();
   const { ref, inView } = useInView<HTMLDivElement>();
 
   useIsoLayoutEffect(() => {
     const gsap = getGsap();
-    if (!gsap || !scope.current) return;
+    if (!gsap || !ref.current) return;
 
     const targets =
       typeof stagger === "number"
-        ? gsap.utils.toArray<HTMLElement>("[data-rise]", scope.current)
-        : scope.current;
+        ? gsap.utils.toArray<HTMLElement>("[data-rise]", ref.current)
+        : ref.current;
 
     if (reduced) {
       gsap.set(targets, { clearProps: "all" });
