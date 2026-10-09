@@ -32,7 +32,7 @@ export function ProductImage({
         height={1800}
         sizes={sizes}
         priority={priority}
-        className={className}
+        className={className ? `${className} object-cover` : "object-cover"}
       />
     );
   }

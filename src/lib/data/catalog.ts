@@ -82,6 +82,7 @@ const placeholder = (
   slug: string,
   art: DeviceArtVariant,
   featured: boolean,
+  image: Product["image"],
 ): Product => ({
   id,
   slug,
@@ -92,13 +93,26 @@ const placeholder = (
   specs: undefined,
   pendingData: true,
   featured,
+  image,
 });
 
 export const products: Product[] = [
-  placeholder("slot-01", "featured-device-01", "signature", true),
-  placeholder("slot-02", "featured-device-02", "camera", true),
-  placeholder("slot-03", "featured-device-03", "value", false),
-  placeholder("slot-04", "featured-device-04", "compact", false),
+  placeholder("slot-01", "featured-device-01", "signature", true, {
+    src: "/images/catalog/signature-smartphone.jpg",
+    alt: "Close-up product photo of a modern smartphone on a white surface.",
+  }),
+  placeholder("slot-02", "featured-device-02", "camera", true, {
+    src: "/images/catalog/camera-smartphone.jpg",
+    alt: "Macro photo of smartphone camera lenses.",
+  }),
+  placeholder("slot-03", "featured-device-03", "value", false, {
+    src: "/images/catalog/value-smartphone.jpg",
+    alt: "Hand holding a smartphone with a blank screen.",
+  }),
+  placeholder("slot-04", "featured-device-04", "compact", false, {
+    src: "/images/catalog/compact-smartphone.jpg",
+    alt: "Hand holding a compact smartphone in a clear case.",
+  }),
 ];
 
 /* ── Brand wall ─────────────────────────────────────────────────────────── */
