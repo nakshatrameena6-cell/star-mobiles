@@ -41,7 +41,7 @@ export function SmoothScroll() {
     });
     instance = lenis;
 
-    const raf = (time: number) => lenis.raf(time);
+    const raf = (time: number) => lenis.raf(time * 1000);
     gsap.ticker.add(raf);
     gsap.ticker.lagSmoothing(0);
 
